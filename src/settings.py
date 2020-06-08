@@ -7,9 +7,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q_aas*p71zr1+$xqzg6o27d-odkza=tvk5^p(eqe$dhwbi^pz9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["coins.korddesign.ir"]
 
 
 # Application definition
@@ -102,17 +102,26 @@ USE_L10N = True
 USE_TZ = True
 
 # COIN API
-# API_URL = "https://rest.coinapi.io/v1/assets"
-# COIN_API_KEY = "112e6277c0154a9eb13397d24e1af7bf"
 API_URL = "https://api.coinstats.app/public/v1/coins"
 
+
+
 STATIC_URL = '/static/'
-STATIC_ROOT = '/static_cdn/'
-MEDIA_URL = '/media/'
-MEDIA_URL = '/media_cdn/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static_cdn"),
-]
+MEDIA_URL = "/media/"
+STATICFILES_DIRS = [BASE_DIR+"/static_cdn"]
+STATIC_ROOT = "/home2/onlinen1/coins.korddesign.ir/static"
+MEDIA_ROOT = "/home2/onlinen1/coins.korddesign.ir/media"
+# database Setup
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'onlinen1_coins',
+        'USER': 'onlinen1_coin',
+        'PASSWORD': 'Vm?SP1]iJL,n',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 # security

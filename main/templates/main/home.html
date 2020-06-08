@@ -109,9 +109,12 @@
           data.map((item) => {
             var newdiv1 = $(`
             <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                <h6 class="my-0">${item.name}</h6>
-                <small class="text-muted">Now</small>
+                <div  class="d-flex f-row">
+                    <img width="40" height="40" class="mr-3" src="${item.icon}" />
+                    <div>
+                        <h6 class="my-0">${item.name}</h6>
+                        <small class="text-muted">now</small>
+                    </div>
                 </div>
                 <span class="text-muted">$${item.price}</span>
             </li>

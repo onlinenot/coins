@@ -7,7 +7,7 @@ import requests
 
 URL = settings.API_URL
 SKIP = 0
-LIMIT = 10
+LIMIT = 30
 
 FILTER_BY = (
     ("name", "name"),
