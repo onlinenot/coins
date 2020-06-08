@@ -1,0 +1,131 @@
+{% extends 'base.html' %} {% load humanize %} {% block content %}
+
+<!-- Search and Filter START -->
+<div class="row justify-content-center align-items-center mt-5">
+  <div class="col-md-8 col-xl-6 mb-4">
+    <h5 class="d-flex justify-content-between align-items-center mb-3">
+      <span class="text-muted">Search Coins</span>
+
+      <button class="btn btn-success btn-sm justify-content-center align-items-center" onclick="apiCall()">
+      <img src="https://img.icons8.com/flat_round/25/000000/synchronize.png"/>
+        Update Coins
+      </button>
+    </h5>
+    <form method="GET" accept=".">
+      <div class="form-row">
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search Coins..."
+            name="q"
+            value="{{query}}"
+          />
+        </div>
+        <div class="col">
+          <select id="inputState" name="filter" class="form-control">
+            <option value="id">filter the list</option>
+            {% for f,n in filters %}
+            <option {% if filter == f %} selected {% endif %} value="{{f}}">{{n}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-info btn-block btn-sm mt-2">
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+<!-- Search and Filter END -->
+
+<!-- Conis List START -->
+<div class="row justify-content-center align-items-center mt-5">
+  <div class="col-md-8 col-xl-6 mb-4">
+    <h5 class="d-flex justify-content-between align-items-center mb-3">
+      <span class="text-muted">Crypto Coins</span>
+      <span class="badge badge-secondary badge-pill">{{objects|length}}</span>
+    </h5>
+    <ul id="list_coins" class="list-group mb-3">
+      {% for item in objects %}
+      <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <div class="d-flex f-row">
+        <img width="40" height="40" class="mr-3" src="{{item.icon}}" />
+        <div>
+          <h6 class="my-0">{{item.name}}</h6>
+          <small class="text-muted">{{item.date_updated|naturaltime }}</small>
+        </div>
+        </div>
+        <span class="text-muted">${{item.price}}</span>
+      </li>
+      {% empty %}
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Ops - No Coins To Show.</h6>
+              <small class="text-muted">search another name OR try Update the Coins</small>
+            </div>
+          </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<!-- Conis List END -->
+
+<div
+  id="mask"
+  style="
+    position: absolute;
+    background-color: #1f1f1f65;
+    z-index: 55;
+    top: 0;
+    left: 0;
+    display: none;
+  "
+  class="w-100 h-100 justify-content-center align-items-center"
+>
+  <h2 class="text-white p-4" style="background: #009688; border-radius: 5px;">
+    <i class="fas fa-traffic-light"></i>
+    Please wait...
+  </h2>
+</div>
+
+{% endblock content %} {% block script %}
+<script>
+  function apiCall() {
+    let mask = $("#mask");
+    mask.css("display", "flex");
+    jQuery.ajax({
+      url: "{% url 'main:api_call' %}",
+      success: function (data) {
+        // if API faild
+        if (data.error) {
+          mask.hide();
+          return alert(data.error);
+        }
+
+        // if API was Success
+        if (data) {
+          $(".list-group-item").remove();
+          data.map((item) => {
+            var newdiv1 = $(`
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                <h6 class="my-0">${item.name}</h6>
+                <small class="text-muted">Now</small>
+                </div>
+                <span class="text-muted">$${item.price}</span>
+            </li>
+          `);
+            $("#list_coins").append(newdiv1);
+          });
+        }
+        mask.hide();
+      },
+      error: function () {
+        mask.hide();
+        return alert(data.error);
+      },
+    });
+  }
+</script>
+{% endblock script %}
