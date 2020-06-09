@@ -3,13 +3,12 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 SECRET_KEY = 'q_aas*p71zr1+$xqzg6o27d-odkza=tvk5^p(eqe$dhwbi^pz9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["coins.korddesign.ir"]
+ALLOWED_HOSTS = ["coins.korddesign.ir", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -105,10 +104,9 @@ USE_TZ = True
 API_URL = "https://api.coinstats.app/public/v1/coins"
 
 
-
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
-STATICFILES_DIRS = [BASE_DIR+"/static_cdn"]
+STATICFILES_DIRS = [BASE_DIR + "/static_cdn"]
 STATIC_ROOT = "/home2/onlinen1/coins.korddesign.ir/static"
 MEDIA_ROOT = "/home2/onlinen1/coins.korddesign.ir/media"
 # database Setup

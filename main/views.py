@@ -28,6 +28,7 @@ def homeView(request):
     context["query"] = query
     context["filters"] = FILTER_BY
     context["filter"] = filter
+    context["api_url"] = URL
     return render(request, 'main/home.html', context)
 
 
