@@ -48,7 +48,7 @@
     </h5>
     <ul id="list_coins" class="list-group mb-3">
       {% for item in objects %}
-      <li class="list-group-item d-flex justify-content-between lh-condensed">
+      <li  class="list-group-item d-flex justify-content-between lh-condensed">
         <div class="d-flex f-row">
         <img width="40" height="40" class="mr-3" src="{{item.icon}}" />
         <div>
@@ -56,7 +56,7 @@
           <small class="text-muted">{{item.date_updated|naturaltime }}</small>
         </div>
         </div>
-        <span class="text-muted">${{item.price}}</span>
+        <span id="{{item.symbol}}" class="text-muted">${{item.price}}</span>
       </li>
       {% empty %}
           <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -106,22 +106,7 @@
 
         // if API was Success
         if (res) {
-          $(".list-group-item").remove();
-          res.map((item) => {
-            var newdiv1 = $(`
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div  class="d-flex f-row">
-                    <img width="40" height="40" class="mr-3" src="${item.icon}" />
-                    <div>
-                        <h6 class="my-0">${item.name}</h6>
-                        <small class="text-muted">now</small>
-                    </div>
-                </div>
-                <span class="text-muted">$${item.price}</span>
-            </li>
-          `);
-            $("#list_coins").append(newdiv1);
-          });
+        
         }
         mask.hide();
       },
@@ -131,11 +116,29 @@
       },
     });
   }
+</script>
 
-  $(function(){
-    setInterval(()=>apiCall("{{api_url}}?limit=30"),10000);
-});
-
-
+<script>
+  const {host,pathname,protocol} = window.location
+  let  wsStart = 'ws://'
+  if (protocol=='https:'){
+    wsStart = 'wss://'
+  } 
+  let endpont =wsStart+ host+pathname
+  var socket = new WebSocket(endpont)
+  socket.onopen = function (e) {
+    console.log("open",e)
+  }
+  socket.onmessage = function (e) {
+          JSON.parse(e.data).map((item) => {
+            $(`#${item.symbol}`).html('$'+item.price)
+          });   
+  }
+  socket.onerror = function (e) {
+    console.log("error",e)
+  }
+  socket.onclose = function (e) {
+    console.log("close",e)
+  }
 </script>
 {% endblock script %}

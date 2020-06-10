@@ -14,6 +14,7 @@ ALLOWED_HOSTS = ["coins.korddesign.ir", "localhost", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,7 +38,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'src.urls'
-
+ASGI_APPLICATION = "src.routing.application"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -60,13 +61,28 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': '123456789',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'onlinen1_coins',
+            'USER': 'onlinen1_coin',
+            'PASSWORD': 'Vm?SP1]iJL,n',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -109,30 +125,6 @@ MEDIA_URL = "/media/"
 STATICFILES_DIRS = [BASE_DIR + "/static_cdn"]
 STATIC_ROOT = "/home2/onlinen1/coins.korddesign.ir/static"
 MEDIA_ROOT = "/home2/onlinen1/coins.korddesign.ir/media"
-# database Setup
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'onlinen1_coins',
-        'USER': 'onlinen1_coin',
-        'PASSWORD': 'Vm?SP1]iJL,n',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
 
 
 # security
-if DEBUG:
-    SECURE_SSL_REDIRECT = False
-else:
-    SECURE_SSL_REDIRECT = True
-
-SESSION_COOKIE_SECURE = True
-SECURE_REFERRER_POLICY = 'strict-origin'
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_SECONDS = 15768000
-SECURE_HSTS_PRELOAD = True
-CSRF_COOKIE_SAMESITE = 'Strict'
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SecurityMiddleware = 'origin'
