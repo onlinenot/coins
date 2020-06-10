@@ -5,11 +5,10 @@
   <div class="col-md-8 col-xl-6 mb-4">
     <h5 class="d-flex justify-content-between align-items-center mb-3">
       <span class="text-muted">Search Coins</span>
-
-      <button class="btn btn-success btn-sm justify-content-center align-items-center" onclick="apiCall({% url 'main:api_call' %})">
+      <!-- <button class="btn btn-success btn-sm justify-content-center align-items-center" onclick="apiCall({% url 'main:api_call' %})">
       <img src="https://img.icons8.com/flat_round/25/000000/synchronize.png"/>
         Update Coins
-      </button>
+      </button> -->
     </h5>
     <form method="GET" accept=".">
       <div class="form-row">
@@ -90,6 +89,7 @@
 </div>
 
 {% endblock content %} {% block script %}
+<!--
 <script>
   function apiCall(url) {
     let mask = $("#mask");
@@ -117,6 +117,7 @@
     });
   }
 </script>
+-->
 
 <script>
   const {host,pathname,protocol} = window.location

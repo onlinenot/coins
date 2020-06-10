@@ -8,7 +8,7 @@ SECRET_KEY = 'q_aas*p71zr1+$xqzg6o27d-odkza=tvk5^p(eqe$dhwbi^pz9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["coins.korddesign.ir", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -125,6 +125,3 @@ MEDIA_URL = "/media/"
 STATICFILES_DIRS = [BASE_DIR + "/static_cdn"]
 STATIC_ROOT = "/home2/onlinen1/coins.korddesign.ir/static"
 MEDIA_ROOT = "/home2/onlinen1/coins.korddesign.ir/media"
-
-
-# security
