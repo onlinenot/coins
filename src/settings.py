@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q_aas*p71zr1+$xqzg6o27d-odkza=tvk5^p(eqe$dhwbi^pz9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -61,28 +61,35 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': '123456789',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
+# if DEBUG:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'postgres',
+#             'USER': 'postgres',
+#             'PASSWORD': '123456789',
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': 'onlinen1_coins',
+#             'USER': 'onlinen1_coin',
+#             'PASSWORD': 'Vm?SP1]iJL,n',
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#         }
+#     }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'onlinen1_coins',
-            'USER': 'onlinen1_coin',
-            'PASSWORD': 'Vm?SP1]iJL,n',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
